@@ -1,0 +1,33 @@
+version: '3'
+services:
+  portal:
+    image: glassofwhiskey/liferay-portal:7.0-ce-ga5-dev
+    networks:
+      - lfrnet
+    ports:
+      - "8000:8000"
+      - "8080:8080"
+      - "11311:11311"
+    volumes:
+      - liferay-document-library:/usr/local/liferay-ce-portal-7.0-ga5/data/document_library
+      - ${LIFERAY_BUNDLE_DIR}/osgi/configs:/usr/local/liferay-ce-portal-7.0-ga5/osgi/configs
+      - ${LIFERAY_BUNDLE_DIR}/deploy:/usr/local/liferay-ce-portal-7.0-ga5/deploy
+      - ${LIFERAY_BUNDLE_DIR}/osgi/marketplace:/usr/local/liferay-ce-portal-7.0-ga5/osgi/marketplace
+      - ${LIFERAY_BUNDLE_DIR}/osgi/modules:/usr/local/liferay-ce-portal-7.0-ga5/osgi/modules
+      - ${LIFERAY_BUNDLE_DIR}/portal-ext.properties:/usr/local/liferay-ce-portal-7.0-ga5/portal-ext.properties
+      - ${LIFERAY_BUNDLE_DIR}/osgi/war:/usr/local/liferay-ce-portal-7.0-ga5/osgi/war
+#  db:
+#    image: mysql:latest
+#    environment:
+#      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+#    networks:
+#      - lfrnet
+#    ports:
+#      - "3306:3306"
+#    volumes:
+#      - db-data:/var/lib/mysql
+networks:
+  lfrnet:
+volumes:
+#  db-data:
+  liferay-document-library:
