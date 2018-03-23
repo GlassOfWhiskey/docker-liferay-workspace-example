@@ -13,7 +13,6 @@
 		"version": "7.0"
 	},
 	"devDependencies": {
-		"docker-gulp-tasks-4-liferay": "^1.0.2",
 		"gulp": "^3.8.10",
 		"liferay-theme-deps-7.0": "~1.2.1",
 		"liferay-theme-tasks": "^1.4.2"

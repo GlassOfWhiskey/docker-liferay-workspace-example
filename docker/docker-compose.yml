@@ -2,6 +2,7 @@ version: '3'
 services:
   portal:
     image: glassofwhiskey/liferay-portal:7.0-ce-ga5-dev
+#    image: liferay-portal:devsession
     networks:
       - lfrnet
     ports:
