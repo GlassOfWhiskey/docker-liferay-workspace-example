@@ -1,0 +1,4 @@
+Bundle-Name: dev-session-sample-portlet
+Bundle-SymbolicName: com.liferay.dev.session.sample
+Bundle-Version: 1.0.0
+Export-Package: com.liferay.dev.session.sample.constants

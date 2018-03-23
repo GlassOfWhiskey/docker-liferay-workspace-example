@@ -16,18 +16,39 @@ services:
       - ${LIFERAY_BUNDLE_DIR}/osgi/modules:/usr/local/liferay-ce-portal-7.0-ga5/osgi/modules
       - ${LIFERAY_BUNDLE_DIR}/portal-ext.properties:/usr/local/liferay-ce-portal-7.0-ga5/portal-ext.properties
       - ${LIFERAY_BUNDLE_DIR}/osgi/war:/usr/local/liferay-ce-portal-7.0-ga5/osgi/war
-#  db:
-#    image: mysql:latest
-#    environment:
-#      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-#    networks:
-#      - lfrnet
-#    ports:
-#      - "3306:3306"
-#    volumes:
-#      - db-data:/var/lib/mysql
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    networks:
+      - lfrnet
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+      - ${PROJECT_DIR}/docker/mysql-init-scripts:/docker-entrypoint-initdb.d
+  elasticsearch:
+    image: glassofwhiskey/elasticsearch:2.4
+    environment: 
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+    networks:
+      - lfrnet
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - elastisearch-data:/usr/share/elasticsearch/data
+  kibana:
+    image: kibana:4.6
+    networks:
+      - lfrnet
+    ports:
+      - "5601:5601"
 networks:
   lfrnet:
 volumes:
-#  db-data:
+  db-data:
+  elastisearch-data:
   liferay-document-library:
+  
