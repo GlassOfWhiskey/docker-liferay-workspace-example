@@ -62,6 +62,6 @@ Set the generated Docker image name. The image created by dockerBuildImage Gradl
 #### liferay.docker.db.root.password
 
 type: `string`  
-default: `p@ssword`
+default: `p4ssword`
 
 Set the root password for an external database container defined in Docker Compose file. Probably this property should be defined inside `gradle-local.properties` file, so that it can vary between different team members (see [net.saliman.properties](https://plugins.gradle.org/plugin/net.saliman.properties) Gradle plugin)

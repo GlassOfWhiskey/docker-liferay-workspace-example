@@ -18,5 +18,5 @@ project.ext {
 	
 	dockerDbRootPassword = project.hasProperty('liferay.docker.db.root.password') ?
 		(project.getProperty('liferay.docker.db.root.password')) :
-		('p@ssword')
+		('p4ssword')
 }
