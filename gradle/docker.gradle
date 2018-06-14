@@ -1,0 +1,84 @@
+apply from: 'gradle/project-ext.gradle'
+
+class DockerCompose extends DefaultTask {
+	
+	List<?> dockerComposeArguments
+	Map<String, ?> dockerComposeEnvironment
+
+	DockerCompose() {
+		
+		_setEnvironment()
+		_setDefaultAgruments()
+	}
+
+	private void _setEnvironment() {
+	
+		dockerComposeEnvironment = [
+			'LIFERAY_BUNDLE_DIR': project.bundleDirPath,
+			'PROJECT_DIR': project.projectDir.toString(),
+			'DB_ROOT_PASSWORD': project.dockerDbRootPassword
+		]
+	}
+	
+	private void _setDefaultAgruments() {
+	
+		dockerComposeArguments = [
+			'-p',
+			project.dockerContainerPrefix,
+			'-f',
+			project.dockerComposeFilePath
+		]
+	}
+	
+	public void args(Iterable<?> args) {
+		
+		args.each{ arg -> dockerComposeArguments.add(arg) }
+	}
+	
+	public void args(Object... args) {
+		
+		args.each{ arg -> dockerComposeArguments.add(arg) }
+	}
+	
+	@TaskAction
+	public void dockerCompose() {
+		
+		project.exec {
+			executable 'docker-compose'
+			args dockerComposeArguments
+			environment dockerComposeEnvironment
+		}
+	}
+}
+
+task startDockerEnv(
+	description: 'Inits docker project environment.',
+	group: 'docker',
+	type: DockerCompose
+) {
+	args('up', '--force-recreate', '-d')
+}
+
+task stopDockerEnv(
+	description: 'Shuts down docker project environment.',
+	group: 'docker',
+	type: DockerCompose
+) {
+	args('down')
+}
+
+task buildDockerImage(
+	description: 'Builds a Liferay Docker image based on the current local environment.',
+	group: 'docker',
+	type: Exec
+) {
+
+	executable 'docker'
+	args(
+		'build',
+		'--force-rm=true',
+		'-t',
+		project.dockerImageName,
+		'.'
+	)
+}

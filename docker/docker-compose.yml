@@ -26,8 +26,27 @@ services:
 #      - "3306:3306"
 #    volumes:
 #      - db-data:/var/lib/mysql
+#  elasticsearch:
+#    image: glassofwhiskey/elasticsearch:2.4
+#    environment: 
+#      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+#    networks:
+#      - lfrnet
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
+#    volumes:
+#      - elastisearch-data:/usr/share/elasticsearch/data
+#  kibana:
+#    image: kibana:4.6
+#    networks:
+#      - lfrnet
+#    ports:
+#      - "5601:5601"
 networks:
   lfrnet:
 volumes:
 #  db-data:
+#  elasticsearch-data
   liferay-document-library:

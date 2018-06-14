@@ -1,0 +1,22 @@
+project.ext {
+
+	bundleDirPath = project.hasProperty('liferay.workspace.home.dir') ?
+		(project.getProperty('liferay.workspace.home.dir').toString()) :
+		(project.projectDir.toString() + '/bundles')
+		
+	dockerComposeFilePath = project.hasProperty('liferay.docker.compose.path') ?
+		(project.getProperty('liferay.docker.compose.path')) :
+		(project.projectDir.toString() + '/docker/docker-compose.yml')
+		
+	dockerContainerPrefix = project.hasProperty('liferay.docker.container.prefix') ?
+		(project.getProperty('liferay.docker.container.prefix')) :
+		('liferay')
+
+	dockerImageName = project.hasProperty('liferay.docker.image.name') ?
+		(project.getProperty('liferay.docker.image.name')) :
+		('liferay-portal:latest')
+	
+	dockerDbRootPassword = project.hasProperty('liferay.docker.db.root.password') ?
+		(project.getProperty('liferay.docker.db.root.password')) :
+		('p@ssword')
+}
